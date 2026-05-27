@@ -1,0 +1,102 @@
+.my-withdraw-page {
+  min-height: 100vh;
+  background: #071b11;
+  color: white;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.my-withdraw-topbar {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-withdraw-topbar h1 {
+  color: #4ade80;
+}
+
+.my-withdraw-topbar button {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.my-withdraw-message,
+.my-withdraw-empty {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.my-withdraw-empty h2 {
+  color: #4ade80;
+  margin-bottom: 8px;
+}
+
+.my-withdraw-empty p {
+  color: #bbf7d0;
+}
+
+.my-withdraw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.my-withdraw-card {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.my-withdraw-card h2 {
+  color: #4ade80;
+  margin-bottom: 12px;
+}
+
+.my-withdraw-card p {
+  color: #dcfce7;
+  margin-bottom: 10px;
+}
+
+.withdraw-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.withdraw-status.pending {
+  background: #854d0e;
+  color: #fef3c7;
+}
+
+.withdraw-status.approved {
+  background: #166534;
+  color: #bbf7d0;
+}
+
+.withdraw-status.rejected {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+@media (max-width: 600px) {
+  .my-withdraw-topbar {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}

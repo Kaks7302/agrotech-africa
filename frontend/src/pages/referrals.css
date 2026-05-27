@@ -1,0 +1,70 @@
+.referral-page {
+  min-height: 100vh;
+  background: #071b11;
+  color: white;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.referral-topbar {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.referral-topbar h1 {
+  color: #4ade80;
+}
+
+.referral-topbar button,
+.referral-card button,
+.share-btn {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.referral-card {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 22px;
+  padding: 22px;
+  margin-top: 20px;
+}
+
+.referral-card h2 {
+  color: #4ade80;
+  margin-bottom: 12px;
+}
+
+.referral-card p {
+  color: #dcfce7;
+  margin-bottom: 10px;
+}
+
+.referral-code {
+  background: #071b11;
+  border: 1px dashed #4ade80;
+  color: #4ade80;
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  word-break: break-word;
+}
+
+.share-btn {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}

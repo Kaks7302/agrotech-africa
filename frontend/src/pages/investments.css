@@ -1,0 +1,89 @@
+.invest-page {
+  min-height: 100vh;
+  background: #071b11;
+  color: white;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+.invest-topbar {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 18px;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.invest-topbar h1 {
+  color: #4ade80;
+}
+
+.invest-topbar button {
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.invest-message,
+.empty-box {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.empty-box h2 {
+  color: #4ade80;
+  margin-bottom: 10px;
+}
+
+.empty-box p {
+  color: #bbf7d0;
+}
+
+.invest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.invest-card {
+  background: #10281b;
+  border: 1px solid #1f5134;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.invest-card h2 {
+  color: #4ade80;
+  margin-bottom: 15px;
+}
+
+.invest-card p {
+  margin-bottom: 10px;
+  color: #dcfce7;
+}
+
+.invest-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.invest-status.active {
+  background: #166534;
+  color: #bbf7d0;
+}
+
+.invest-status.completed {
+  background: #1e3a8a;
+  color: #bfdbfe;
+}

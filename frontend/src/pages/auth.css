@@ -1,0 +1,101 @@
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 40, 20, 0.85), rgba(0, 20, 10, 0.9)),
+    url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: white;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(7, 27, 17, 0.96);
+  border: 1px solid #1f5134;
+  border-radius: 22px;
+  padding: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.auth-card h1 {
+  color: #4ade80;
+  margin-bottom: 8px;
+}
+
+.auth-card p {
+  color: #c7f9d4;
+  margin-bottom: 20px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-card input {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #245c3b;
+  background: #10281b;
+  color: white;
+  outline: none;
+}
+
+.auth-card input::placeholder {
+  color: #8bb79a;
+}
+
+.auth-card button {
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #22c55e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auth-card button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.auth-card span {
+  display: block;
+  margin-top: 18px;
+  color: #c7f9d4;
+}
+
+.auth-card a {
+  color: #4ade80;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.auth-message {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.captcha-box {
+  background: #071b11;
+  border: 1px solid #1f5134;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.captcha-box label {
+  display: block;
+  color: #bbf7d0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}

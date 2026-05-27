@@ -1,0 +1,1 @@
+import mongoose from'mongoose';const schema=new mongoose.Schema({name:String,price:Number,dailyIncome:Number,cycleDays:Number,image:String,active:{type:Boolean,default:true}});export default mongoose.model('Package',schema);
