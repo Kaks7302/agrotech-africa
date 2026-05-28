@@ -3,6 +3,7 @@ import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import WhatsAppButton from "../components/WhatsAppButton";
 import Toast from "../components/Toast";
+import { t } from "../i18n";
 import "./withdraw.css";
 
 function Withdraw() {
@@ -56,34 +57,37 @@ function Withdraw() {
       />
 
       <div className="withdraw-card">
-        <h1>Withdraw Funds</h1>
+        <h1>{t("withdrawFunds")}</h1>
 
-        <p className="withdraw-note">
-          Minimum withdrawal is 100 MT. A 10% fee is deducted.
-        </p>
+        <p className="withdraw-note">{t("minimumWithdrawNote")}</p>
 
         <form onSubmit={submitWithdrawal}>
           <input
             type="number"
-            placeholder="Amount to withdraw"
+            placeholder={t("amountToWithdraw")}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
 
           <input
             type="text"
-            placeholder="E-mola phone number"
+            placeholder={t("emolaPhone")}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
 
           <div className="withdraw-summary">
-            <p>Fee: {fee} MT</p>
-            <p>You Receive: {receiveAmount} MT</p>
+            <p>
+              {t("fee")}: {fee} MT
+            </p>
+
+            <p>
+              {t("youReceive")}: {receiveAmount} MT
+            </p>
           </div>
 
           <button disabled={loading}>
-            {loading ? "Submitting..." : "Submit Withdrawal"}
+            {loading ? "..." : t("submitWithdrawal")}
           </button>
         </form>
 
@@ -91,7 +95,7 @@ function Withdraw() {
           className="back-btn"
           onClick={() => (window.location.href = "/dashboard")}
         >
-          Back to Dashboard
+          {t("backToDashboard")}
         </button>
       </div>
 

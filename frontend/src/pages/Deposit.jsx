@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import API from "../services/api";
 import Toast from "../components/Toast";
+import { t } from "../i18n";
 import "./deposit.css";
 
 function Deposit() {
@@ -25,7 +25,7 @@ function Deposit() {
 
     if (!screenshot) {
       setToast({
-        message: "Please upload payment screenshot",
+        message: t("uploadScreenshot"),
         type: "error",
       });
       return;
@@ -67,10 +67,10 @@ function Deposit() {
     return (
       <div className="deposit-page">
         <div className="deposit-card">
-          <h1>No Package Selected</h1>
+          <h1>{t("noPackageSelected")}</h1>
 
           <button onClick={() => navigate("/dashboard")}>
-            Back to Dashboard
+            {t("backToDashboard")}
           </button>
         </div>
       </div>
@@ -86,32 +86,30 @@ function Deposit() {
       />
 
       <div className="deposit-card">
-        <h1>Complete Payment</h1>
+        <h1>{t("completePayment")}</h1>
 
         <div className="package-box">
           <h2>{selectedPackage?.name}</h2>
-
           <h3>{selectedPackage?.amount}</h3>
-
-          <p>Daily Profit: {selectedPackage?.daily}</p>
+          <p>{t("dailyProfit")}: {selectedPackage?.daily}</p>
         </div>
 
         <div className="payment-info">
-          <h3>E-mola Payment Details</h3>
+          <h3>{t("paymentDetails")}</h3>
 
           <p>
-            <strong>Number:</strong> 866150334
+            <strong>{t("emolaNumber")}:</strong> 866150334
           </p>
 
           <p>
-            <strong>Account Holder:</strong> Momed Uqueio
+            <strong>{t("accountHolder")}:</strong> Momed Uqueio
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Payment Reference"
+            placeholder={t("paymentReference")}
             value={paymentReference}
             onChange={(e) => setPaymentReference(e.target.value)}
           />
@@ -123,7 +121,7 @@ function Deposit() {
           />
 
           <button disabled={loading}>
-            {loading ? "Submitting..." : "Submit Payment"}
+            {loading ? "..." : t("submitPayment")}
           </button>
         </form>
       </div>

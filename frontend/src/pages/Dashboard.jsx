@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import WhatsAppButton from "../components/WhatsAppButton";
+import { t } from "../i18n";
 import "./dashboard.css";
 
 import p1 from "../assets/p1.jpg";
@@ -63,35 +64,37 @@ function Dashboard() {
             window.location.href = "/login";
           }}
         >
-          Logout
+          {t("logout")}
         </button>
       </div>
 
       <div className="welcome-card">
-        <h2>Welcome {user?.username}</h2>
+        <h2>{t("welcome")} {user?.username}</h2>
         <p>Technology, Innovation & Financial Growth For A Stronger Future</p>
       </div>
 
       <div className="balance-grid">
         <div className="balance-card">
-          <h3>Total Balance</h3>
+          <h3>{t("totalBalance")}</h3>
           <h1>{user?.balance || 0} MT</h1>
         </div>
 
         <div className="balance-card">
-          <h3>Profit Balance</h3>
+          <h3>{t("profitBalance")}</h3>
           <h1>{user?.profitBalance || 0} MT</h1>
         </div>
 
         <div className="balance-card">
-          <h3>Referral Code</h3>
+          <h3>{t("referralCode")}</h3>
           <h2>{user?.referralCode}</h2>
         </div>
       </div>
 
       <div className="package-section">
-        <h2>Investment Plans</h2>
-        <p className="plan-text">Duration: 365 Days • Daily Profit: 3.33%</p>
+        <h2>{t("investmentPlans")}</h2>
+        <p className="plan-text">
+          {t("duration")}: 365 Days • {t("dailyProfit")}: 3.33%
+        </p>
 
         <div className="packages">
           {packages.map((item, index) => (
@@ -101,10 +104,12 @@ function Dashboard() {
               <div className="card-body">
                 <h3>{item.name}</h3>
                 <h1>{item.amount}</h1>
-                <p>Daily Profit: {item.daily}</p>
-                <p>Duration: 365 Days</p>
+                <p>{t("dailyProfit")}: {item.daily}</p>
+                <p>{t("duration")}: 365 Days</p>
 
-                <button onClick={() => buyPackage(item)}>Buy Now</button>
+                <button onClick={() => buyPackage(item)}>
+                  {t("buyNow")}
+                </button>
               </div>
             </div>
           ))}

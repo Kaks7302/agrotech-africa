@@ -1,0 +1,14 @@
+.install-button {
+  position: fixed;
+  left: 18px;
+  bottom: 90px;
+  background: #22c55e;
+  color: white;
+  border: none;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 3000;
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.35);
+}

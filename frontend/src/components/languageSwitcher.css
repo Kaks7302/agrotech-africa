@@ -1,9 +1,30 @@
-.language-switcher {
-  background: #071b11;
-  color: white;
+.language-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  background: rgba(7, 27, 17, 0.95);
   border: 1px solid #22c55e;
-  padding: 10px 12px;
-  border-radius: 12px;
-  outline: none;
+  border-radius: 14px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 3000;
+}
+
+.language-toggle button {
+  background: transparent;
+  border: none;
+  color: #bbf7d0;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.language-toggle button.active {
+  color: #22c55e;
+  text-decoration: underline;
+}
+
+.language-toggle span {
+  color: #4ade80;
 }

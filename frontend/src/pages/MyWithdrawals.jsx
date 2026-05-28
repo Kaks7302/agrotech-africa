@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import BottomNav from "../components/BottomNav";
+import { t } from "../i18n";
 import "./myWithdrawals.css";
-import WhatsAppButton from "../components/WhatsAppButton";
 
 function MyWithdrawals() {
   const [withdrawals, setWithdrawals] = useState([]);
@@ -24,10 +24,10 @@ function MyWithdrawals() {
   return (
     <div className="my-withdraw-page">
       <div className="my-withdraw-topbar">
-        <h1>My Withdrawals</h1>
+        <h1>{t("myWithdrawals")}</h1>
 
         <button onClick={() => (window.location.href = "/dashboard")}>
-          Dashboard
+          {t("dashboard")}
         </button>
       </div>
 
@@ -35,36 +35,38 @@ function MyWithdrawals() {
 
       {withdrawals.length === 0 ? (
         <div className="my-withdraw-empty">
-          <h2>No withdrawals yet</h2>
-          <p>Your withdrawal requests will appear here.</p>
+          <h2>{t("noWithdrawalsYet")}</h2>
+          <p>{t("withdrawalRequestsAppear")}</p>
         </div>
       ) : (
         <div className="my-withdraw-grid">
           {withdrawals.map((item) => (
             <div className="my-withdraw-card" key={item._id}>
-              <h2>{item.amount} MT</h2>
+              <h2>
+                {t("amount")}: {item.amount} MT
+              </h2>
 
               <p>
-                <strong>Fee:</strong> {item.fee} MT
+                <strong>{t("fee")}:</strong> {item.fee} MT
               </p>
 
               <p>
-                <strong>You Receive:</strong> {item.receiveAmount} MT
+                <strong>{t("receiveAmount")}:</strong> {item.receiveAmount} MT
               </p>
 
               <p>
-                <strong>E-mola Number:</strong> {item.phone}
+                <strong>{t("emolaPhone")}:</strong> {item.phone}
               </p>
 
               <p>
-                <strong>Status:</strong>{" "}
+                <strong>{t("status")}:</strong>{" "}
                 <span className={`withdraw-status ${item.status}`}>
                   {item.status}
                 </span>
               </p>
 
               <p>
-                <strong>Date:</strong>{" "}
+                <strong>{t("date")}:</strong>{" "}
                 {new Date(item.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -73,7 +75,6 @@ function MyWithdrawals() {
       )}
 
       <BottomNav />
-      <WhatsAppButton />
     </div>
   );
 }

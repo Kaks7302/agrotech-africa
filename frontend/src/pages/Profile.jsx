@@ -3,6 +3,7 @@ import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import WhatsAppButton from "../components/WhatsAppButton";
 import Toast from "../components/Toast";
+import { t } from "../i18n";
 import "./profile.css";
 
 function Profile() {
@@ -18,11 +19,9 @@ function Profile() {
   const fetchUser = async () => {
     try {
       const res = await API.get("/auth/me");
-
       setUser(res.data.user);
-
       localStorage.setItem("agrotech_user", JSON.stringify(res.data.user));
-    } catch (error) {
+    } catch {
       setToast({
         message: "Failed to load profile",
         type: "error",
@@ -38,7 +37,7 @@ function Profile() {
     navigator.clipboard.writeText(user?.referralCode || "");
 
     setToast({
-      message: "Referral code copied",
+      message: t("copied"),
       type: "success",
     });
   };
@@ -57,10 +56,10 @@ function Profile() {
       />
 
       <div className="profile-topbar">
-        <h1>My Profile</h1>
+        <h1>{t("profile")}</h1>
 
         <button onClick={() => (window.location.href = "/dashboard")}>
-          Dashboard
+          {t("dashboard")}
         </button>
       </div>
 
@@ -74,34 +73,34 @@ function Profile() {
 
       <div className="profile-grid">
         <div className="profile-card">
-          <h3>Total Balance</h3>
+          <h3>{t("totalBalance")}</h3>
           <h2>{user?.balance || 0} MT</h2>
         </div>
 
         <div className="profile-card">
-          <h3>Profit Balance</h3>
+          <h3>{t("profitBalance")}</h3>
           <h2>{user?.profitBalance || 0} MT</h2>
         </div>
       </div>
 
       <div className="profile-card">
-        <h3>Referral Code</h3>
+        <h3>{t("referralCode")}</h3>
 
         <div className="profile-referral">{user?.referralCode}</div>
 
-        <button onClick={copyReferral}>Copy Referral Code</button>
+        <button onClick={copyReferral}>{t("copyReferralCode")}</button>
       </div>
 
       <div className="profile-card">
-        <h3>Referred By</h3>
+        <h3>Upline</h3>
 
-        <p>{user?.referredBy || "No upline"}</p>
+        <p>{user?.referredBy || "N/A"}</p>
       </div>
 
       <div className="profile-card">
-        <h3>Support</h3>
+        <h3>{t("support")}</h3>
 
-        <p>Need help with deposits, withdrawals, or your account?</p>
+        <p>{t("contactSupport")}</p>
 
         <a
           href="https://wa.me/258866150334"
@@ -109,12 +108,12 @@ function Profile() {
           rel="noreferrer"
           className="profile-support"
         >
-          Contact WhatsApp Support
+          WhatsApp
         </a>
       </div>
 
       <button className="profile-logout" onClick={logout}>
-        Logout
+        {t("logout")}
       </button>
 
       <WhatsAppButton />

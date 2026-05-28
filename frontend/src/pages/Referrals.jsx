@@ -3,6 +3,7 @@ import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import WhatsAppButton from "../components/WhatsAppButton";
 import Toast from "../components/Toast";
+import { t } from "../i18n";
 import "./referrals.css";
 
 function Referrals() {
@@ -18,11 +19,9 @@ function Referrals() {
   const fetchUser = async () => {
     try {
       const res = await API.get("/auth/me");
-
       setUser(res.data.user);
-
       localStorage.setItem("agrotech_user", JSON.stringify(res.data.user));
-    } catch (error) {
+    } catch {
       setToast({
         message: "Failed to load referral data",
         type: "error",
@@ -36,15 +35,18 @@ function Referrals() {
 
   const referralCode = user?.referralCode || "";
 
-  const inviteMessage = `Join Agrotech Africa and start investing today. Use my referral code: ${referralCode}`;
+  const inviteMessage =
+    `${t("register")} Agrotech Africa. ${t("referralCode")}: ${referralCode}`;
 
-  const whatsappLink = `https://wa.me/?text=${encodeURIComponent(inviteMessage)}`;
+  const whatsappLink = `https://wa.me/?text=${encodeURIComponent(
+    inviteMessage
+  )}`;
 
   const copyCode = () => {
     navigator.clipboard.writeText(referralCode);
 
     setToast({
-      message: "Referral code copied successfully",
+      message: t("copied"),
       type: "success",
     });
   };
@@ -58,42 +60,33 @@ function Referrals() {
       />
 
       <div className="referral-topbar">
-        <h1>Referrals</h1>
+        <h1>{t("referrals")}</h1>
 
         <button onClick={() => (window.location.href = "/dashboard")}>
-          Dashboard
+          {t("dashboard")}
         </button>
       </div>
 
       <div className="referral-card">
-        <h2>Your Referral Code</h2>
+        <h2>{t("yourReferralCode")}</h2>
 
         <div className="referral-code">{referralCode}</div>
 
-        <button onClick={copyCode}>Copy Code</button>
+        <button onClick={copyCode}>{t("copyCode")}</button>
       </div>
 
       <div className="referral-card">
-        <h2>How It Works</h2>
+        <h2>{t("referralProgram")}</h2>
 
-        <p>Invite friends using your referral code.</p>
+        <p>{t("inviteEarn")}</p>
 
-        <p>
-          When they buy a package and admin approves their deposit, you earn 10%
-          commission.
-        </p>
-
-        <p>Your referral bonus goes directly into your profit balance.</p>
+        <p>10% {t("bonusEarned")}</p>
       </div>
 
       <div className="referral-card">
-        <h2>Your Upline</h2>
+        <h2>Upline</h2>
 
-        <p>
-          {user?.referredBy
-            ? user.referredBy
-            : "You were not referred by anyone."}
-        </p>
+        <p>{user?.referredBy ? user.referredBy : "N/A"}</p>
       </div>
 
       <a
@@ -102,7 +95,7 @@ function Referrals() {
         rel="noreferrer"
         className="share-btn"
       >
-        Share on WhatsApp
+        WhatsApp
       </a>
 
       <WhatsAppButton />

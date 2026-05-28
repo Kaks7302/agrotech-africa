@@ -1,24 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getLanguage, setLanguage } from "../i18n";
 import "./languageSwitcher.css";
 
 function LanguageSwitcher() {
-  const [lang, setLang] = useState(localStorage.getItem("agrotech_lang") || "en");
+  const [lang, setLang] = useState(getLanguage());
 
-  const changeLanguage = (value) => {
-    localStorage.setItem("agrotech_lang", value);
+  useEffect(() => {
+    const update = () => setLang(getLanguage());
+
+    window.addEventListener("languageChanged", update);
+
+    return () => window.removeEventListener("languageChanged", update);
+  }, []);
+
+  const changeLang = (value) => {
+    setLanguage(value);
     setLang(value);
     window.location.reload();
   };
 
   return (
-    <select
-      className="language-switcher"
-      value={lang}
-      onChange={(e) => changeLanguage(e.target.value)}
-    >
-      <option value="en">English</option>
-      <option value="pt">Português</option>
-    </select>
+    <div className="language-toggle">
+      <button
+        className={lang === "pt" ? "active" : ""}
+        onClick={() => changeLang("pt")}
+      >
+        PT
+      </button>
+
+      <span>|</span>
+
+      <button
+        className={lang === "en" ? "active" : ""}
+        onClick={() => changeLang("en")}
+      >
+        EN
+      </button>
+    </div>
   );
 }
 
