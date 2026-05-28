@@ -1,6 +1,7 @@
 import Deposit from "../models/Deposit.js";
 import User from "../models/User.js";
 import Investment from "../models/Investment.js";
+import sendTelegramMessage from "../utils/sendTelegramMessage.js";
 
 export const createDeposit = async (req, res) => {
   try {
@@ -33,6 +34,19 @@ export const createDeposit = async (req, res) => {
       paymentReference,
       screenshot: req.file.filename,
     });
+
+    await sendTelegramMessage(`
+🚨 New Deposit Submitted
+
+👤 User: ${user.username}
+📞 Phone: ${user.phone}
+
+📦 Package: ${packageName}
+💰 Amount: ${amount} MT
+🧾 Reference: ${paymentReference}
+
+⏳ Status: Pending Approval
+`);
 
     res.status(201).json({
       message:
