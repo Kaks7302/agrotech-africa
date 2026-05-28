@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import API from "../services/api";
 import BottomNav from "../components/BottomNav";
+import WhatsAppButton from "../components/WhatsAppButton";
+import Toast from "../components/Toast";
 import "./withdraw.css";
 
 function Withdraw() {
@@ -8,8 +10,12 @@ function Withdraw() {
 
   const [amount, setAmount] = useState("");
   const [phone, setPhone] = useState(user?.phone || "");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [toast, setToast] = useState({
+    message: "",
+    type: "success",
+  });
 
   const fee = amount ? Number(amount) * 0.1 : 0;
   const receiveAmount = amount ? Number(amount) - fee : 0;
@@ -19,18 +25,23 @@ function Withdraw() {
 
     try {
       setLoading(true);
-      setMessage("");
 
       const res = await API.post("/withdrawals", {
         amount,
         phone,
       });
 
-      setMessage(res.data.message);
+      setToast({
+        message: res.data.message,
+        type: "success",
+      });
 
       setAmount("");
     } catch (error) {
-      setMessage(error.response?.data?.message || "Withdrawal failed");
+      setToast({
+        message: error.response?.data?.message || "Withdrawal failed",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
@@ -38,14 +49,18 @@ function Withdraw() {
 
   return (
     <div className="withdraw-page">
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ message: "", type: "success" })}
+      />
+
       <div className="withdraw-card">
         <h1>Withdraw Funds</h1>
 
         <p className="withdraw-note">
           Minimum withdrawal is 100 MT. A 10% fee is deducted.
         </p>
-
-        {message && <div className="withdraw-message">{message}</div>}
 
         <form onSubmit={submitWithdrawal}>
           <input
@@ -80,6 +95,7 @@ function Withdraw() {
         </button>
       </div>
 
+      <WhatsAppButton />
       <BottomNav />
     </div>
   );

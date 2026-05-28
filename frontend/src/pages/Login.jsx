@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import Toast from "../components/Toast";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { t } from "../i18n";
 import "./auth.css";
 
 function Login() {
@@ -50,11 +52,7 @@ function Login() {
       const res = await API.post("/auth/login", form);
 
       localStorage.setItem("agrotech_token", res.data.token);
-
-      localStorage.setItem(
-        "agrotech_user",
-        JSON.stringify(res.data.user)
-      );
+      localStorage.setItem("agrotech_user", JSON.stringify(res.data.user));
 
       setToast({
         message: "Login successful",
@@ -68,7 +66,6 @@ function Login() {
           navigate("/dashboard");
         }
       }, 1000);
-
     } catch (error) {
       setToast({
         message: error.response?.data?.message || "Login failed",
@@ -92,16 +89,18 @@ function Login() {
         }
       />
 
-      <div className="auth-card">
-        <h1>Welcome Back</h1>
+      <LanguageSwitcher />
 
-        <p>Login with your Mozambique phone number</p>
+      <div className="auth-card">
+        <h1>{t("login")}</h1>
+
+        <p>{t("welcome")}</p>
 
         <form onSubmit={handleLogin}>
           <input
             type="text"
             name="phone"
-            placeholder="Phone Number: 258XXXXXXXXX"
+            placeholder={t("phoneNumber")}
             value={form.phone}
             onChange={handleChange}
           />
@@ -109,34 +108,31 @@ function Login() {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t("password")}
             value={form.password}
             onChange={handleChange}
           />
 
           <div className="captcha-box">
             <label>
-              Human Verification: {captcha.a} + {captcha.b} = ?
+              {t("humanVerification")}: {captcha.a} + {captcha.b} = ?
             </label>
 
             <input
               type="number"
-              placeholder="Enter answer"
+              placeholder="Answer"
               value={captchaAnswer}
-              onChange={(e) =>
-                setCaptchaAnswer(e.target.value)
-              }
+              onChange={(e) => setCaptchaAnswer(e.target.value)}
             />
           </div>
 
           <button disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "..." : t("login")}
           </button>
         </form>
 
         <span>
-          Don’t have an account?{" "}
-          <Link to="/register">Register</Link>
+          {t("register")}? <Link to="/register">{t("register")}</Link>
         </span>
       </div>
     </div>

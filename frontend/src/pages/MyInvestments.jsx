@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import "./investments.css";
+import WhatsAppButton from "../components/WhatsAppButton";
 
 function MyInvestments() {
   const [investments, setInvestments] = useState([]);
@@ -71,6 +72,7 @@ function MyInvestments() {
       )}
 
       <BottomNav />
+      <WhatsAppButton />
     </div>
   );
 }

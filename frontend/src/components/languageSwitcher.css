@@ -1,0 +1,9 @@
+.language-switcher {
+  background: #071b11;
+  color: white;
+  border: 1px solid #22c55e;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+  font-weight: bold;
+}

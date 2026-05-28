@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import BottomNav from "../components/BottomNav";
 import "./myWithdrawals.css";
+import WhatsAppButton from "../components/WhatsAppButton";
 
 function MyWithdrawals() {
   const [withdrawals, setWithdrawals] = useState([]);
@@ -72,6 +73,7 @@ function MyWithdrawals() {
       )}
 
       <BottomNav />
+      <WhatsAppButton />
     </div>
   );
 }

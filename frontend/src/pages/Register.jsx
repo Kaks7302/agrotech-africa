@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import Toast from "../components/Toast";
+import LanguageSwitcher from "../components/LanguageSwitcher";
+import { t } from "../i18n";
 import "./auth.css";
 
 function Register() {
@@ -77,18 +79,26 @@ function Register() {
       <Toast
         message={toast.message}
         type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
+        onClose={() =>
+          setToast({
+            message: "",
+            type: "success",
+          })
+        }
       />
 
+      <LanguageSwitcher />
+
       <div className="auth-card">
-        <h1>Create Account</h1>
-        <p>Join Agrotech Africa today</p>
+        <h1>{t("createAccount")}</h1>
+
+        <p>Agrotech Africa</p>
 
         <form onSubmit={handleRegister}>
           <input
             type="text"
             name="username"
-            placeholder="Full Name"
+            placeholder={t("fullName")}
             value={form.username}
             onChange={handleChange}
           />
@@ -96,7 +106,7 @@ function Register() {
           <input
             type="text"
             name="phone"
-            placeholder="Phone Number: 258XXXXXXXXX"
+            placeholder={t("phoneNumber")}
             value={form.phone}
             onChange={handleChange}
           />
@@ -104,7 +114,7 @@ function Register() {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder={t("password")}
             value={form.password}
             onChange={handleChange}
           />
@@ -112,31 +122,31 @@ function Register() {
           <input
             type="text"
             name="referredBy"
-            placeholder="Referral Code Optional"
+            placeholder={t("referralCode")}
             value={form.referredBy}
             onChange={handleChange}
           />
 
           <div className="captcha-box">
             <label>
-              Human Verification: {captcha.a} + {captcha.b} = ?
+              {t("humanVerification")}: {captcha.a} + {captcha.b} = ?
             </label>
 
             <input
               type="number"
-              placeholder="Enter answer"
+              placeholder="Answer"
               value={captchaAnswer}
               onChange={(e) => setCaptchaAnswer(e.target.value)}
             />
           </div>
 
           <button disabled={loading}>
-            {loading ? "Creating Account..." : "Register"}
+            {loading ? "..." : t("register")}
           </button>
         </form>
 
         <span>
-          Already have an account? <Link to="/login">Login</Link>
+          {t("login")}? <Link to="/login">{t("login")}</Link>
         </span>
       </div>
     </div>
