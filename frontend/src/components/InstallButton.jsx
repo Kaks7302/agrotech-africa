@@ -1,40 +1,44 @@
 import React, { useEffect, useState } from "react";
+import { t } from "../i18n";
 import "./installButton.css";
 
 function InstallButton() {
-  const [installPrompt, setInstallPrompt] = useState(null);
-  const [showButton, setShowButton] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault();
-      setInstallPrompt(e);
-      setShowButton(true);
+      setDeferredPrompt(e);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handler
+      );
     };
   }, []);
 
   const installApp = async () => {
-    if (!installPrompt) return;
+    if (!deferredPrompt) return;
 
-    installPrompt.prompt();
+    deferredPrompt.prompt();
 
-    await installPrompt.userChoice;
+    await deferredPrompt.userChoice;
 
-    setInstallPrompt(null);
-    setShowButton(false);
+    setDeferredPrompt(null);
   };
 
-  if (!showButton) return null;
+  if (!deferredPrompt) return null;
 
   return (
-    <button className="install-button" onClick={installApp}>
-      📲 Instalar App
+    <button
+      className="install-button"
+      onClick={installApp}
+    >
+      📲 {t("installApp")}
     </button>
   );
 }

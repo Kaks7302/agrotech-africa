@@ -9,33 +9,51 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
 
+      includeAssets: [
+        "favicon.ico",
+        "apple-touch-icon.png",
+        "masked-icon.svg",
+      ],
+
       manifest: {
         name: "Agrotech Africa",
         short_name: "Agrotech",
-        description: "Technology and investments platform",
-        theme_color: "#22c55e",
-        background_color: "#071b11",
+        description:
+          "Agrotech Africa Investment Platform",
+
+        theme_color: "#0b1f14",
+
+        background_color: "#0b1f14",
+
         display: "standalone",
+
         orientation: "portrait",
+
+        scope: "/",
+
+        start_url: "/",
 
         icons: [
           {
-            src: "/icon-192.png",
+            src: "/pwa-192x192.png",
             sizes: "192x192",
             type: "image/png",
           },
 
           {
-            src: "/icon-512.png",
+            src: "/pwa-512x512.png",
             sizes: "512x512",
             type: "image/png",
+          },
+
+          {
+            src: "/pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
           },
         ],
       },
     }),
   ],
-
-  server: {
-    host: true,
-  },
 });
