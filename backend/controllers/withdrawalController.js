@@ -1,5 +1,6 @@
 import Withdrawal from "../models/Withdrawal.js";
 import User from "../models/User.js";
+import sendTelegramMessage from "../utils/sendTelegramMessage.js";
 
 export const createWithdrawal = async (req, res) => {
   try {
@@ -42,6 +43,20 @@ export const createWithdrawal = async (req, res) => {
       receiveAmount,
       phone,
     });
+
+    await sendTelegramMessage(`
+💸 New Withdrawal Request
+
+👤 User: ${user.username}
+📞 Account Phone: ${user.phone}
+📲 Payout Number: ${phone}
+
+💰 Requested: ${withdrawAmount} MT
+🧾 Fee: ${fee} MT
+✅ User Receives: ${receiveAmount} MT
+
+⏳ Status: Pending Approval
+`);
 
     res.status(201).json({
       message: "Withdrawal request submitted successfully",
