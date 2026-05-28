@@ -25,6 +25,14 @@ export const createDeposit = async (req, res) => {
       });
     }
 
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
     const deposit = await Deposit.create({
       user: req.user._id,
       packageName,
@@ -130,6 +138,17 @@ export const approveDeposit = async (req, res) => {
         referrer.profitBalance += referralBonus;
 
         await referrer.save();
+
+        await sendTelegramMessage(`
+🤝 Referral Bonus Paid
+
+👤 Referrer: ${referrer.username}
+📞 Phone: ${referrer.phone}
+
+👥 Referred User: ${buyer.username}
+💰 Deposit Amount: ${deposit.amount} MT
+🎁 Bonus Paid: ${referralBonus} MT
+`);
       }
     }
 
@@ -155,6 +174,18 @@ export const approveDeposit = async (req, res) => {
       });
     }
 
+    await sendTelegramMessage(`
+✅ Deposit Approved
+
+👤 User: ${buyer?.username}
+📞 Phone: ${buyer?.phone}
+
+📦 Package: ${deposit.packageName}
+💰 Amount: ${deposit.amount} MT
+
+🟢 Investment Activated
+`);
+
     res.json({
       message: "Deposit approved, investment activated, referral checked",
       deposit,
@@ -169,7 +200,10 @@ export const approveDeposit = async (req, res) => {
 
 export const rejectDeposit = async (req, res) => {
   try {
-    const deposit = await Deposit.findById(req.params.id);
+    const deposit = await Deposit.findById(req.params.id).populate(
+      "user",
+      "username phone"
+    );
 
     if (!deposit) {
       return res.status(404).json({
@@ -179,6 +213,16 @@ export const rejectDeposit = async (req, res) => {
 
     deposit.status = "rejected";
     await deposit.save();
+
+    await sendTelegramMessage(`
+❌ Deposit Rejected
+
+👤 User: ${deposit.user?.username}
+📞 Phone: ${deposit.user?.phone}
+
+📦 Package: ${deposit.packageName}
+💰 Amount: ${deposit.amount} MT
+`);
 
     res.json({
       message: "Deposit rejected",
