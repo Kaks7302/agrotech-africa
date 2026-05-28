@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import sendTelegramMessage from "../utils/sendTelegramMessage.js";
 
 const generateReferralCode = (username) => {
   const cleanName = username.replace(/\s+/g, "").toUpperCase().slice(0, 4);
@@ -43,6 +44,17 @@ export const registerUser = async (req, res) => {
       referralCode: generateReferralCode(username),
       referredBy: referredBy || "",
     });
+
+    await sendTelegramMessage(`
+🎉 New User Registered
+
+👤 Name: ${user.username}
+📞 Phone: ${user.phone}
+
+👥 Referral Code: ${user.referralCode}
+
+🟢 New member joined Agrotech Africa
+`);
 
     const token = jwt.sign(
       {
