@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import API from "../services/api";
 import Toast from "../components/Toast";
 import LanguageSwitcher from "../components/LanguageSwitcher";
@@ -8,6 +8,7 @@ import "./auth.css";
 
 function Register() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [captcha] = useState({
     a: Math.floor(Math.random() * 10) + 1,
@@ -25,7 +26,7 @@ function Register() {
     username: "",
     phone: "",
     password: "",
-    referredBy: "",
+    referredBy: searchParams.get("ref") || "",
   });
 
   const [loading, setLoading] = useState(false);

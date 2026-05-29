@@ -76,6 +76,13 @@ phone: "Telefone",
 accountDetails: "Detalhes da Conta",
 copyReferralCode: "Copiar código de referência",
 contactSupport: "Contactar Suporte",
+
+myWithdrawals: "Meus Levantamentos",
+noWithdrawalsYet: "Ainda não tem levantamentos",
+withdrawalRequestsAppear: "Os seus pedidos de levantamento aparecerão aqui.",
+amount: "Valor",
+receiveAmount: "Valor a receber",
+date: "Data",
   },
 
   en: {
@@ -155,6 +162,13 @@ phone: "Phone",
 accountDetails: "Account Details",
 copyReferralCode: "Copy Referral Code",
 contactSupport: "Contact Support",
+
+myWithdrawals: "My Withdrawals",
+noWithdrawalsYet: "No withdrawals yet",
+withdrawalRequestsAppear: "Your withdrawal requests will appear here.",
+amount: "Amount",
+receiveAmount: "Receive Amount",
+date: "Date",
   },
 };
 

@@ -35,8 +35,22 @@ function Referrals() {
 
   const referralCode = user?.referralCode || "";
 
-  const inviteMessage =
-    `${t("register")} Agrotech Africa. ${t("referralCode")}: ${referralCode}`;
+  const inviteMessage = `
+ AGROTECH AFRICA
+
+ Start earning daily with Agrotech Africa.
+
+ -Simple registration
+ -Daily profits
+ -Referral bonuses
+ -Fast withdrawals
+
+ Use my referral code:
+${referralCode}
+
+ Join here:
+https://agrotech-africa.vercel.app/register?ref=${referralCode}
+`;
 
   const whatsappLink = `https://wa.me/?text=${encodeURIComponent(
     inviteMessage
