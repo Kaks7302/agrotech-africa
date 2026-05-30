@@ -99,3 +99,48 @@
   margin-bottom: 10px;
   font-weight: bold;
 }
+
+.password-box {
+  position: relative;
+  width: 100%;
+}
+
+.password-box input {
+  width: 100%;
+  padding-right: 52px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none !important;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  width: auto !important;
+  padding: 0 !important;
+}
+
+.password-rules {
+  background: #071b11;
+  border: 1px solid #1f5134;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.password-rules p {
+  margin: 5px 0;
+}
+
+.valid {
+  color: #22c55e;
+}
+
+.invalid {
+  color: #ef4444;
+}

@@ -9,6 +9,8 @@ import "./auth.css";
 function Login() {
   const navigate = useNavigate();
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const [captcha] = useState({
     a: Math.floor(Math.random() * 10) + 1,
     b: Math.floor(Math.random() * 10) + 1,
@@ -40,7 +42,7 @@ function Login() {
 
     if (Number(captchaAnswer) !== captcha.a + captcha.b) {
       setToast({
-        message: "Human verification failed",
+        message: t("humanFailed"),
         type: "error",
       });
       return;
@@ -55,7 +57,7 @@ function Login() {
       localStorage.setItem("agrotech_user", JSON.stringify(res.data.user));
 
       setToast({
-        message: "Login successful",
+        message: t("loginSuccess"),
         type: "success",
       });
 
@@ -68,7 +70,7 @@ function Login() {
       }, 1000);
     } catch (error) {
       setToast({
-        message: error.response?.data?.message || "Login failed",
+        message: error.response?.data?.message || t("loginFailed"),
         type: "error",
       });
     } finally {
@@ -105,13 +107,23 @@ function Login() {
             onChange={handleChange}
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder={t("password")}
-            value={form.password}
-            onChange={handleChange}
-          />
+          <div className="password-box">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder={t("password")}
+              value={form.password}
+              onChange={handleChange}
+            />
+
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
 
           <div className="captcha-box">
             <label>
@@ -120,15 +132,13 @@ function Login() {
 
             <input
               type="number"
-              placeholder="Answer"
+              placeholder={t("answer")}
               value={captchaAnswer}
               onChange={(e) => setCaptchaAnswer(e.target.value)}
             />
           </div>
 
-          <button disabled={loading}>
-            {loading ? "..." : t("login")}
-          </button>
+          <button disabled={loading}>{loading ? "..." : t("login")}</button>
         </form>
 
         <span>

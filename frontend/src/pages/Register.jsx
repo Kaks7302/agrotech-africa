@@ -10,6 +10,8 @@ function Register() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const [captcha] = useState({
     a: Math.floor(Math.random() * 10) + 1,
     b: Math.floor(Math.random() * 10) + 1,
@@ -31,6 +33,21 @@ function Register() {
 
   const [loading, setLoading] = useState(false);
 
+  const passwordChecks = {
+    length: form.password.length >= 8,
+    uppercase: /[A-Z]/.test(form.password),
+    lowercase: /[a-z]/.test(form.password),
+    number: /[0-9]/.test(form.password),
+    special: /[^A-Za-z0-9]/.test(form.password),
+  };
+
+  const passwordIsValid =
+    passwordChecks.length &&
+    passwordChecks.uppercase &&
+    passwordChecks.lowercase &&
+    passwordChecks.number &&
+    passwordChecks.special;
+
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -41,9 +58,17 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (!passwordIsValid) {
+      setToast({
+        message: t("passwordWeak"),
+        type: "error",
+      });
+      return;
+    }
+
     if (Number(captchaAnswer) !== captcha.a + captcha.b) {
       setToast({
-        message: "Human verification failed",
+        message: t("humanFailed"),
         type: "error",
       });
       return;
@@ -58,7 +83,7 @@ function Register() {
       localStorage.setItem("agrotech_user", JSON.stringify(res.data.user));
 
       setToast({
-        message: "Account created successfully",
+        message: t("accountCreated"),
         type: "success",
       });
 
@@ -67,7 +92,7 @@ function Register() {
       }, 1200);
     } catch (error) {
       setToast({
-        message: error.response?.data?.message || "Registration failed",
+        message: error.response?.data?.message || t("registrationFailed"),
         type: "error",
       });
     } finally {
@@ -112,13 +137,45 @@ function Register() {
             onChange={handleChange}
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder={t("password")}
-            value={form.password}
-            onChange={handleChange}
-          />
+          <div className="password-box">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder={t("password")}
+              value={form.password}
+              onChange={handleChange}
+            />
+
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </button>
+          </div>
+
+          <div className="password-rules">
+            <p className={passwordChecks.length ? "valid" : "invalid"}>
+              ✓ {t("passwordMin8")}
+            </p>
+
+            <p className={passwordChecks.uppercase ? "valid" : "invalid"}>
+              ✓ {t("passwordUppercase")}
+            </p>
+
+            <p className={passwordChecks.lowercase ? "valid" : "invalid"}>
+              ✓ {t("passwordLowercase")}
+            </p>
+
+            <p className={passwordChecks.number ? "valid" : "invalid"}>
+              ✓ {t("passwordNumber")}
+            </p>
+
+            <p className={passwordChecks.special ? "valid" : "invalid"}>
+              ✓ {t("passwordSpecial")}
+            </p>
+          </div>
 
           <input
             type="text"
@@ -135,7 +192,7 @@ function Register() {
 
             <input
               type="number"
-              placeholder="Answer"
+              placeholder={t("answer")}
               value={captchaAnswer}
               onChange={(e) => setCaptchaAnswer(e.target.value)}
             />
