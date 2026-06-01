@@ -10,19 +10,33 @@ export const processDailyEarnings = async () => {
     const now = new Date();
 
     for (const investment of investments) {
-      const lastPaid = investment.lastPaidAt;
-
-      const shouldPay =
-        !lastPaid ||
-        now.getTime() - new Date(lastPaid).getTime() >= 24 * 60 * 60 * 1000;
-
-      if (!shouldPay) {
-        continue;
-      }
-
       if (investment.daysPaid >= investment.duration) {
         investment.status = "completed";
         await investment.save();
+        continue;
+      }
+
+      let shouldPay = false;
+
+      if (!investment.lastPaidAt) {
+        const startDate = new Date(investment.startDate || investment.createdAt);
+        const hoursSinceStart =
+          (now.getTime() - startDate.getTime()) / (1000 * 60 * 60);
+
+        if (hoursSinceStart >= 24) {
+          shouldPay = true;
+        }
+      } else {
+        const lastPaid = new Date(investment.lastPaidAt);
+        const hoursSinceLastPaid =
+          (now.getTime() - lastPaid.getTime()) / (1000 * 60 * 60);
+
+        if (hoursSinceLastPaid >= 24) {
+          shouldPay = true;
+        }
+      }
+
+      if (!shouldPay) {
         continue;
       }
 
