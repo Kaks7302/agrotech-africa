@@ -12,6 +12,7 @@ import depositRoutes from "./routes/depositRoutes.js";
 import investmentRoutes from "./routes/investmentRoutes.js";
 import withdrawalRoutes from "./routes/withdrawalRoutes.js";
 import adminStatsRoutes from "./routes/adminStatsRoutes.js";
+import emailRoutes from "./routes/emailRoutes.js";
 
 import { processDailyEarnings } from "./utils/earningsEngine.js";
 
@@ -55,6 +56,7 @@ app.use("/api/deposits", depositRoutes);
 app.use("/api/investments", investmentRoutes);
 app.use("/api/withdrawals", withdrawalRoutes);
 app.use("/api/admin-stats", adminStatsRoutes);
+app.use("/api/email", emailRoutes);
 
 cron.schedule("0 0 * * *", () => {
   processDailyEarnings();
