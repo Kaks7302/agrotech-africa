@@ -13,8 +13,6 @@ import p4 from "../assets/p4.jpg";
 import p5 from "../assets/p5.jpg";
 import p6 from "../assets/p6.jpg";
 import p7 from "../assets/p7.jpg";
-import p8 from "../assets/p8.jpg";
-import p9 from "../assets/p9.jpg";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -38,15 +36,62 @@ function Dashboard() {
   }, []);
 
   const packages = [
-    { name: "Digital Start Package", amount: "1,300 MT", amountNumber: 1300, daily: "43 MT", dailyNumber: 43, image: p1 },
-    { name: "Tech Harvest Package", amount: "3,600 MT", amountNumber: 3600, daily: "120 MT", dailyNumber: 120, image: p2 },
-    { name: "Agro Smart Package", amount: "6,600 MT", amountNumber: 6600, daily: "220 MT", dailyNumber: 220, image: p3 },
-    { name: "Rural Tech Pro Package", amount: "9,600 MT", amountNumber: 9600, daily: "320 MT", dailyNumber: 320, image: p4 },
-    { name: "Smart Premium Package", amount: "12,600 MT", amountNumber: 12600, daily: "420 MT", dailyNumber: 420, image: p5 },
-    { name: "Digital Master Package", amount: "15,600 MT", amountNumber: 15600, daily: "520 MT", dailyNumber: 520, image: p6 },
-    { name: "Future Tech Package", amount: "18,600 MT", amountNumber: 18600, daily: "620 MT", dailyNumber: 620, image: p7 },
-    { name: "Elite Innovation Package", amount: "21,600 MT", amountNumber: 21600, daily: "720 MT", dailyNumber: 720, image: p8 },
-    { name: "Mega Vision Package", amount: "25,000 MT", amountNumber: 25000, daily: "833 MT", dailyNumber: 833, image: p9 },
+    {
+      name: "Digital Starter Package",
+      amount: "1,500 MT",
+      amountNumber: 1500,
+      daily: "75 MT",
+      dailyNumber: 75,
+      image: p1,
+    },
+    {
+      name: "Tech Harvest Package",
+      amount: "3,500 MT",
+      amountNumber: 3500,
+      daily: "175 MT",
+      dailyNumber: 175,
+      image: p2,
+    },
+    {
+      name: "Agro Smart Package",
+      amount: "6,000 MT",
+      amountNumber: 6000,
+      daily: "300 MT",
+      dailyNumber: 300,
+      image: p3,
+    },
+    {
+      name: "Rural Tech Pro Package",
+      amount: "10,000 MT",
+      amountNumber: 10000,
+      daily: "500 MT",
+      dailyNumber: 500,
+      image: p4,
+    },
+    {
+      name: "Smart Premium Package",
+      amount: "15,000 MT",
+      amountNumber: 15000,
+      daily: "750 MT",
+      dailyNumber: 750,
+      image: p5,
+    },
+    {
+      name: "Digital Master Package",
+      amount: "20,000 MT",
+      amountNumber: 20000,
+      daily: "1,000 MT",
+      dailyNumber: 1000,
+      image: p6,
+    },
+    {
+      name: "Future Tech Package",
+      amount: "30,000 MT",
+      amountNumber: 30000,
+      daily: "1,500 MT",
+      dailyNumber: 1500,
+      image: p7,
+    },
   ];
 
   const buyPackage = (item) => {
@@ -69,7 +114,10 @@ function Dashboard() {
       </div>
 
       <div className="welcome-card">
-        <h2>{t("welcome")} {user?.username}</h2>
+        <h2>
+          {t("welcome")} {user?.username}
+        </h2>
+
         <p>Technology, Innovation & Financial Growth For A Stronger Future</p>
       </div>
 
@@ -92,8 +140,9 @@ function Dashboard() {
 
       <div className="package-section">
         <h2>{t("investmentPlans")}</h2>
+
         <p className="plan-text">
-          {t("duration")}: 365 Days • {t("dailyProfit")}: 3.33%
+          {t("duration")}: 365 Days • Estimated Daily Return: Up to 5.00%
         </p>
 
         <div className="packages">
@@ -103,8 +152,13 @@ function Dashboard() {
 
               <div className="card-body">
                 <h3>{item.name}</h3>
+
                 <h1>{item.amount}</h1>
-                <p>{t("dailyProfit")}: {item.daily}</p>
+
+                <p>
+                  {t("dailyProfit")}: {item.daily}
+                </p>
+
                 <p>{t("duration")}: 365 Days</p>
 
                 <button onClick={() => buyPackage(item)}>

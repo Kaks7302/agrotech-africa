@@ -98,11 +98,11 @@ function Deposit() {
           <h3>{t("paymentDetails")}</h3>
 
           <p>
-            <strong>{t("emolaNumber")}:</strong> 866150334
+            <strong>{t("emolaNumber")}:</strong> 874008679
           </p>
 
           <p>
-            <strong>{t("accountHolder")}:</strong> Momed Uqueio
+            <strong>{t("accountHolder")}:</strong> Angelina Fernando
           </p>
         </div>
 

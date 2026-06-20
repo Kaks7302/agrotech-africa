@@ -103,12 +103,12 @@ function Profile() {
         <p>{t("contactSupport")}</p>
 
         <a
-          href="https://wa.me/258866150334"
+          href="https://t.me/AgentBraxton"
           target="_blank"
           rel="noreferrer"
           className="profile-support"
         >
-          WhatsApp
+          Telegram
         </a>
       </div>
 

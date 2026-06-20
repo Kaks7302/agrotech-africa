@@ -11,6 +11,10 @@ function Register() {
   const [searchParams] = useSearchParams();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [emailCode, setEmailCode] = useState("");
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [sendingCode, setSendingCode] = useState(false);
+  const [verifyingCode, setVerifyingCode] = useState(false);
 
   const [captcha] = useState({
     a: Math.floor(Math.random() * 10) + 1,
@@ -26,6 +30,7 @@ function Register() {
 
   const [form, setForm] = useState({
     username: "",
+    email: "",
     phone: "",
     password: "",
     referredBy: searchParams.get("ref") || "",
@@ -49,14 +54,93 @@ function Register() {
     passwordChecks.special;
 
   const handleChange = (e) => {
+    if (e.target.name === "email") {
+      setEmailVerified(false);
+    }
+
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
 
+  const sendCode = async () => {
+    if (!form.email) {
+      setToast({
+        message: "Enter your email first",
+        type: "error",
+      });
+      return;
+    }
+
+    try {
+      setSendingCode(true);
+
+      const res = await API.post("/email/send-code", {
+        email: form.email,
+        purpose: "register",
+      });
+
+      setToast({
+        message: res.data.message,
+        type: "success",
+      });
+    } catch (error) {
+      setToast({
+        message: error.response?.data?.message || "Failed to send code",
+        type: "error",
+      });
+    } finally {
+      setSendingCode(false);
+    }
+  };
+
+  const verifyEmailCode = async () => {
+    if (!form.email || !emailCode) {
+      setToast({
+        message: "Enter email and verification code",
+        type: "error",
+      });
+      return;
+    }
+
+    try {
+      setVerifyingCode(true);
+
+      const res = await API.post("/email/verify-code", {
+        email: form.email,
+        code: emailCode,
+        purpose: "register",
+      });
+
+      setEmailVerified(true);
+
+      setToast({
+        message: res.data.message,
+        type: "success",
+      });
+    } catch (error) {
+      setEmailVerified(false);
+
+      setToast({
+        message: error.response?.data?.message || "Invalid verification code",
+        type: "error",
+      });
+    } finally {
+      setVerifyingCode(false);
+    }
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (!emailVerified) {
+      setToast({
+        message: "Please verify your email before registering",
+        type: "error",
+      });
+      return;
+    }
 
     if (!passwordIsValid) {
       setToast({
@@ -130,6 +214,47 @@ function Register() {
           />
 
           <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
+
+          <button
+            type="button"
+            className="secondary-auth-btn"
+            onClick={sendCode}
+            disabled={sendingCode || emailVerified}
+          >
+            {emailVerified
+              ? "Email Verified"
+              : sendingCode
+              ? "Sending..."
+              : "Send Email Code"}
+          </button>
+
+          <input
+            type="text"
+            placeholder="Email Verification Code"
+            value={emailCode}
+            onChange={(e) => setEmailCode(e.target.value)}
+          />
+
+          <button
+            type="button"
+            className="secondary-auth-btn"
+            onClick={verifyEmailCode}
+            disabled={verifyingCode || emailVerified}
+          >
+            {emailVerified
+              ? "Verified"
+              : verifyingCode
+              ? "Verifying..."
+              : "Verify Email"}
+          </button>
+
+          <input
             type="text"
             name="phone"
             placeholder={t("phoneNumber")}
@@ -198,7 +323,7 @@ function Register() {
             />
           </div>
 
-          <button disabled={loading}>
+          <button disabled={loading || !emailVerified}>
             {loading ? "..." : t("register")}
           </button>
         </form>

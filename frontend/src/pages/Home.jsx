@@ -192,11 +192,11 @@ function Home() {
         <p>{page.assistanceText}</p>
 
         <a
-          href="https://wa.me/258866150334"
+          href="https://t.me/AgentBraxton"
           target="_blank"
           rel="noreferrer"
         >
-          {page.whatsapp}
+          Telegram Support
         </a>
       </section>
 

@@ -144,3 +144,8 @@
 .invalid {
   color: #ef4444;
 }
+
+.secondary-auth-btn {
+  background: #064e3b !important;
+  margin-top: -4px;
+}

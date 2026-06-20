@@ -4,12 +4,13 @@ import "./whatsappButton.css";
 function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/258866150334"
+      href="https://t.me/AgentBraxton"
       className="whatsapp-button"
       target="_blank"
       rel="noreferrer"
+      title="Telegram Support"
     >
-      💬
+      ✈️
     </a>
   );
 }
